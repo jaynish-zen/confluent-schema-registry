@@ -9,6 +9,7 @@ interface RegisteredSchema {
 interface Opts {
     compatibility?: COMPATIBILITY;
     separator?: string;
+    subjectName?: string;
 }
 export default class SchemaRegistry {
     private api;
