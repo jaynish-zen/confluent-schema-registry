@@ -21,6 +21,7 @@ interface Opts {
 const DEFAULT_OPTS = {
   compatibility: COMPATIBILITY.BACKWARD,
   separator: DEFAULT_SEPERATOR,
+  subjectName: null
 }
 
 export default class SchemaRegistry {
@@ -33,7 +34,7 @@ export default class SchemaRegistry {
   }
 
   public async register(schema: Schema, userOpts?: Opts): Promise<RegisteredSchema> {
-    const { compatibility, separator } = { ...DEFAULT_OPTS, ...userOpts }
+    const { compatibility, separator, subjectName } = { ...DEFAULT_OPTS, ...userOpts }
 
     if (!schema.name) {
       throw new ConfluentSchemaRegistryArgumentError(`Invalid name: ${schema.name}`)
@@ -43,7 +44,7 @@ export default class SchemaRegistry {
       throw new ConfluentSchemaRegistryArgumentError(`Invalid namespace: ${schema.namespace}`)
     }
 
-    const subject = [schema.namespace, schema.name].join(separator)
+    const subject = subjectName || [schema.namespace, schema.name].join(separator)
 
     try {
       const response = await this.api.Subject.config({ subject })
