@@ -15,7 +15,8 @@ interface RegisteredSchema {
 
 interface Opts {
   compatibility?: COMPATIBILITY
-  separator?: string
+  separator?: string,
+  subjectName?: string
 }
 
 const DEFAULT_OPTS = {
